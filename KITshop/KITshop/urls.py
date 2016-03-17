@@ -16,6 +16,33 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from . import views
+
 urlpatterns = [
+    
+
+    # Here we can match urls accessed by users with a regular expression
+    # The following expression matches all urls of the form BASEURL/product/XYZ
+    # We can further specify a so-called view function that will handle such requests
+    # Here we map this class of urls to the product function in the file view.py 
+    # The inclusion of (?P<id>) means that the string matched by the following regular 
+    # expression will be passed to the product-function as a parameter called id
+    url(r'^product/(?P<id>\w+)/$', views.product, name='product'),
+
+    # This url and the mapping to the admin url is activated by default 
+    # django conveniently provides a default backend that is available at the url 
+
+    # BASEURL/admin/
+
+    # If you access this url, you will be prompted for a username and password 
+    # You can generate such an account by running 
+
+    # > python manage.py createsuperuser 
+
+    # on the command line
+    # Here, I have alrady generated a superuser with the following credentials
+
+    # username: admin
+    # password: AngewandteInformatik
     url(r'^admin/', admin.site.urls),
 ]

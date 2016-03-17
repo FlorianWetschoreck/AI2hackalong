@@ -1,3 +1,5 @@
 from django.contrib import admin
+from . import models
 
-# Register your models here.
+# Here we register the Product data model with the django site 
+admin.site.register(models.Product)
