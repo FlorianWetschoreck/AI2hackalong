@@ -2,6 +2,8 @@ from django.http.response import HttpResponse
 
 from product_catalog.models import Product
 
+import requests
+
 # This function will be called for every request that matches the pattern 
 # BASEURL/product/XYZ/ (see mapping in urls.py)
 # The part XYZ of the URL will be mapped to the argument id
@@ -18,4 +20,7 @@ def product(request, id):
 
     product_name = str(Product.objects.filter(id=id).first())
 
-    return HttpResponse(product_name)
+    # Let us now additionally retrieve the most helpful review for this product from our C# Web Service
+    review = requests.get('http://localhost:8001/rest/products/123/MostHelpfulReview').json()
+
+    return HttpResponse(product_name + ', user ' + review['User'] + ' says: ' + review['ReviewText'])
