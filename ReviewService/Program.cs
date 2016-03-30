@@ -55,35 +55,35 @@ namespace ReviewService
         public List<Review> reviews = new List<Review>();
 
         [OperationContract]
-        [WebGet(UriTemplate = "/products/{productID}/AvgRating", ResponseFormat = WebMessageFormat.Json)]
+        [WebGet(UriTemplate = "/products/{productID}/AvgRating", ResponseFormat = WebMessageFormat.Xml)]
         public double GetAvgRating(string productID)
         {
             return reviews.Where(r => r.ProductID == productID).Select(r => r.Rating).Average();
         }
 
         [OperationContract]
-        [WebGet(UriTemplate = "/products/{productID}/MostHelpfulReview", ResponseFormat = WebMessageFormat.Json)]
+        [WebGet(UriTemplate = "/products/{productID}/MostHelpfulReview", ResponseFormat = WebMessageFormat.Xml)]
         public Review GetMostHelpfulReview(string productID)
         {
             return reviews.OrderByDescending(x => x.HelpfulVotes).First();
         }
 
         [OperationContract]
-        [WebGet(UriTemplate = "/products/{productID}/MostCriticalReview", ResponseFormat = WebMessageFormat.Json)]
+        [WebGet(UriTemplate = "/products/{productID}/MostCriticalReview", ResponseFormat = WebMessageFormat.Xml)]
         public Review GetMostCriticalReview(string productID)
         {
             return reviews.OrderBy(x => x.Rating).First();
         }
 
         [OperationContract]
-        [WebGet(UriTemplate = "reviews/{reviewID}", ResponseFormat = WebMessageFormat.Json)]
+        [WebGet(UriTemplate = "reviews/{reviewID}", ResponseFormat = WebMessageFormat.Xml)]
         public Review GetReview(string reviewID)
         {
             return reviews.Where(r => r.ReviewID == reviewID).First();
         }
 
         [OperationContract]
-        [WebGet(UriTemplate = "/products/{productID}", ResponseFormat = WebMessageFormat.Json)]
+        [WebGet(UriTemplate = "/products/{productID}", ResponseFormat = WebMessageFormat.Xml)]
         public Review[] GetReviews(string productID)
         {
             return reviews.Where(r => r.ProductID == productID).ToArray();
