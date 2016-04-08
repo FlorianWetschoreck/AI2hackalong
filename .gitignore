@@ -3,3 +3,9 @@
 ################################################################################
 
 /KITshop/KITshop/__pycache__
+/KITshop/product_catalog/migrations/__pycache__
+/KITshop/product_catalog/__pycache__
+/ReviewService/bin/Debug
+/ReviewService/obj/Debug
+/KITshop/.vs/KITshop/v14/.suo
+/KITshop/product_catalog/migrations/0001_initial.py

@@ -29,6 +29,8 @@ urlpatterns = [
     # expression will be passed to the product-function as a parameter called id
     url(r'^product/(?P<id>\w+)/$', views.product, name='product'),
 
+    url(r'^order/(?P<id>\w+)/$', views.order, name='order'),
+
     # This url and the mapping to the admin url is activated by default 
     # django conveniently provides a default backend that is available at the url 
 

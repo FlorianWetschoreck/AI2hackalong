@@ -2,6 +2,9 @@ from django.http.response import HttpResponse
 
 from product_catalog.models import Product
 
+import stomp
+
+
 # This function will be called for every request that matches the pattern 
 # BASEURL/product/XYZ/ (see mapping in urls.py)
 # The part XYZ of the URL will be mapped to the argument id
@@ -19,3 +22,35 @@ def product(request, id):
     product_name = str(Product.objects.filter(id=id).first())
 
     return HttpResponse(product_name)
+
+
+def order(request, id):                   
+    # Calling this URL will trigger an order of a product by sending a message to an ActiveMQ 
+    # message queue. In our example, we have an additional JAVA Client that waits for order messages 
+    # and simply prints them on the console
+
+    # Prior to running this example, you should ... 
+    # 1.) Start an ActiveMQ broker by running "activemq start" in the bin directory 
+    #       of the activemq installation (available in this repository)
+    # 2.) Run the JAVA client that waits for messages. For this, install JDK 8 and NetBeans 
+    #       and open the project in the directory "OrderProcessor" in this repository
+    # 3.) Install the python stomp ActiveMQ client module stomp.py by running "pip install stomp.py" on the console
+
+    # You can the try this example by running the server (python manage.py runserver) and then call 
+    # http://localhost:8000/order/123/
+
+    # We first query the name of the product
+    product_name = str(Product.objects.filter(id=id).first())
+
+    # We then create a connection to the ActiveMQ Stomp endpoint 
+    conn = stomp.Connection([('localhost', 61613)])    
+    conn.start()
+    conn.connect()
+
+    # Send order message to the KITShop_OrderBook Queue 
+    conn.send(body='Order of ' + product_name, destination='KITShop_OrderBook')
+
+    # and disconnect 
+    conn.disconnect()
+
+    return HttpResponse('Thank you for your order!')
