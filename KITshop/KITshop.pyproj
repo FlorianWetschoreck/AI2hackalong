@@ -37,7 +37,6 @@
     <Compile Include="product_catalog\migrations\__init__.py" />
     <Compile Include="product_catalog\models.py" />
     <Compile Include="product_catalog\tests.py" />
-    <Compile Include="product_catalog\views.py" />
     <Compile Include="product_catalog\__init__.py" />
   </ItemGroup>
   <ItemGroup>

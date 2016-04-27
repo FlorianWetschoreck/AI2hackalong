@@ -1,5 +1,6 @@
 from django.db import models
 
+# In this file, we specify the data model of our web application
 
 # Defining the following class, will implictly create a database table 'Product' 
 # with three columns id (primary_key), name and price. These models need to be 
@@ -14,7 +15,7 @@ from django.db import models
 # > python manage.py makemigrations (will generate SQL statements that update the database schema)
 # > python manage.py migrate (will actually execute these SQL statements)
 
-# Through a so-called object-relational-mapper (ORM), each rows in this table can be accessed 
+# Through a so-called object-relational-mapper (ORM), each row in the table can be accessed 
 # as a python object, and queries can be executed simply by calling functions of the Product class
 
 # All rows/objects can be retrieved via the field Product.objects.all() 
@@ -31,6 +32,7 @@ class Product(models.Model):
     # The price is a float 
     price = models.FloatField()
 
-    # By the following method, we can specify what happens if we 
+    # By the following method, we can specify what happens if we retrieve a string representation 
+    # of the object (for instance by calling str(obj))
     def __str__(self):
-        return self.name + ' zum Preis von ' + str(self.price) + ' Euro'
+        return 'Product name: ' + self.name + '\n' + 'Price: ' + str(self.price) + ' Euro'
