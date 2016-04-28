@@ -16,6 +16,8 @@
     <IsWindowsApplication>False</IsWindowsApplication>
     <CommandLineArguments>runserver</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <Environment>PYTHONPATH=C:\Program Files\omniORBpy-4.2.1\lib\x86_win32;C:\Program Files\omniORBpy-4.2.1\lib\python;.\KITshop
+PATH=C:\Program Files\omniORBpy-4.2.1\lib\x86_win32;C:\Program Files\omniORBpy-4.2.1\bin\x86_win32</Environment>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -25,6 +27,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="KITshop\settings.py" />
+    <Compile Include="KITshop\ShoppingCart_idl.py" />
     <Compile Include="KITshop\urls.py" />
     <Compile Include="KITshop\views.py">
       <SubType>Code</SubType>

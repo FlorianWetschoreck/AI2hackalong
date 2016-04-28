@@ -1,0 +1,18 @@
+module ShoppingCartApp
+{
+    struct ShoppingCartEntry {
+         string productID;
+         long amount;
+    };
+    
+    typedef sequence<ShoppingCartEntry> cartContents; 
+
+
+	interface ShoppingCart
+    {
+    	void getShoppingCartContents(out cartContents contents);
+    	void addToShoppingCart(in string productId, in long amount);
+        void updateAmount(in string productId, in long new_amount);
+        void clearShoppingCart();
+    };
+};

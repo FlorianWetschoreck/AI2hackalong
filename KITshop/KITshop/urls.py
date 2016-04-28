@@ -33,6 +33,8 @@ urlpatterns = [
     # The inclusion of (?P<id>) means that the string matched by the following regular 
     # expression will be passed to the product-function as a parameter called id
     url(r'^product/(?P<id>\w+)/$', views.product, name='product'),
+    url(r'^addToShoppingCart/(?P<id>\w+)/$', views.addToShoppingCart, name='addToShoppingCart'),
+    url(r'^showShoppingCart/', views.showShoppingCart, name='showShoppingCart'),
 
     # This url and the mapping to the admin url is activated by default 
     # django conveniently provides a default backend that is available at the url 

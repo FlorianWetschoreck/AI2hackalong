@@ -2,6 +2,50 @@ from django.http.response import HttpResponse
 
 from product_catalog.models import Product
 
+# In this week's hackalong, we integrate a legacy CORBA Shopping Cart (implemented here in JAVA) into 
+# our django application 
+from omniORB import CORBA
+
+# For this, you will have to download and install the correct omniORBpy runtime for your python installation
+
+# Admittedly, on Windows this is a little bit cumbersome. You will have to download the 
+# latest binaries (e.g. for WIN64 and Python 3.5) and copy them somewhere. 
+# Then you will have to set the PYTHONPATH environment variable to include ... 
+
+# PYTHONPATH=PATH_TO_OMNIORB/lib/python;PATH_TO_OMNIORB/lib/x86_w32 
+
+# and adjust the PATH environment variable to include ... (be careful to append and not to replace the existing values!)
+
+# PATH=PATH_TO_OMNIORB/lib/x86_w32;PATH_TO_OMNIORB/bin/x86_w32
+
+# If you are using Visual Studio to implement and run this project, things are a bit simpler. 
+# Here you can just paste the two lines above in the environment variable section in the Debug tab 
+# of the "KITshop" project properties (right-click on the KITshop project in the project explorer panel on the right)
+
+# Once everything is set up you will first have to start an ORB instance by running orbd on the command line 
+# (assuming you are having the JAVA SDK installed)
+
+# You can then start the CORBA ShoppingCartServer on the commandline (execute: java ShoppingCartServer in the ShoppingCart directory)
+# Voila! Now the shopping cart can be accessed as a remote object from within this django application
+
+# Thinking about the three-tier architecture discussed in lecture 02, we are now using the ORB as an application server that hosts the 
+# business logic of the shopping cart, while the presentation is done by the web server.
+
+
+# To be able to access the shopping cart object, we first import the client stub, that was generated from the IDL description of the service
+import ShoppingCartApp
+
+# We then initialize the object request broker use the IOR string displayed by the server to obtain an object reference
+orb = CORBA.ORB_init()
+ior = 'IOR:000000000000002549444c3a53686f7070696e67436172744170702f53686f7070696e67436172743a312e300000000000000001000000000000008a000102000000000f3137322e32332e3233312e3130330000f03e000000000031afabcb00000000205da40c8900000001000000000000000100000008526f6f74504f410000000008000000010000000014000000000000020000000100000020000000000001000100000002050100010001002000010109000000010001010000000026000000020002'
+
+obj = orb.string_to_object(ior)
+shoppingcart = obj._narrow(ShoppingCartApp.ShoppingCart)
+
+# In a real-world setting, rather than copying an IOR string, we would register the object using a Naming Service, and then resolve the 
+# name to an IOR string and object reference. This can be done via the COS naming Service that is integrated in CORBA. 
+
+
 # Considering the classical Model-View-Controller pattern as presented in lecture 02, 
 # you may find the contents of the file views.py in the django framework a bit confusing.
 # The functions in this file handle the requests of users, possibly accessing 
@@ -45,4 +89,22 @@ def product(request, id):
     else:
         response = str(Product.objects.filter(id=id).first())
 
+    return HttpResponse(response, content_type="text/plain")
+
+
+def addToShoppingCart(request, id):
+    if Product.objects.filter(id=id).count()==0:
+        response = "Sorry, we don't have a product with the ID " + id
+    else:
+        response = "Added product to shopping cart"
+    return HttpResponse(response, content_type="text/plain")
+
+
+def showShoppingCart(request):
+   
+    contents = shoppingcart.getShoppingCartContents()
+    result = ""
+    for x in contents: 
+        result += str(x) + '\n'; 
+    response = 'ShoppingCart contains:' + contents
     return HttpResponse(response, content_type="text/plain")
