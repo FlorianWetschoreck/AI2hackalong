@@ -35,6 +35,8 @@ urlpatterns = [
     url(r'^product/(?P<id>\w+)/$', views.product, name='product'),
     url(r'^addToShoppingCart/(?P<id>\w+)/$', views.addToShoppingCart, name='addToShoppingCart'),
     url(r'^showShoppingCart/', views.showShoppingCart, name='showShoppingCart'),
+    url(r'^clearShoppingCart/', views.clearShoppingCart, name='clearShoppingCart'),
+    url(r'^updateAmountShoppingCart/(?P<id>\w+)/(?P<amount>\w+)/$', views.updateAmountShoppingCart, name='updateAmountShoppingCart'),
 
     # This url and the mapping to the admin url is activated by default 
     # django conveniently provides a default backend that is available at the url 

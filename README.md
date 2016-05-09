@@ -26,7 +26,8 @@ using the following command:
 
 omniidl -bpython ShoppingCart.idl
 
-As a next step, we compile the JAVA client as follows: 
+As a next step, we implement the methods in the JAVA server skeleton. We can then 
+compile the JAVA server as follows:
 
 javac ShoppingCartServer.java 
 

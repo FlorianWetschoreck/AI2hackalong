@@ -17,8 +17,13 @@ class ShoppingCartImpl extends ShoppingCartPOA {
     orb = orb_val; 
   }
     
-  public void getShoppingCartContents(cartContentsHolder holder) {
-    holder = new cartContentsHolder((ShoppingCartEntry[]) contents.toArray());
+  public void getShoppingCartContents(cartContentsHolder holder) {	
+	// Here we are using an output parameter, i.e. we return the value 
+	// by assigning the value to the argument
+    ShoppingCartEntry[] arr = new ShoppingCartEntry[contents.size()];
+	arr = contents.toArray(arr);
+	holder.value = arr;
+	System.out.println("Returning shopping cart contents");
   }  
   
   public void addToShoppingCart(String productId, int amount) {
@@ -26,18 +31,23 @@ class ShoppingCartImpl extends ShoppingCartPOA {
     e.productID = productId;
     e.amount = amount;
     contents.add(e);
+	System.out.println("Added product to shopping cart");
   }
   
   public void updateAmount(String productId, int new_amount) {
-    ShoppingCartEntry e = new ShoppingCartEntry();
-    e.productID = productId;
-    e.amount = new_amount;
-    contents.add(e);
+    for (ShoppingCartEntry entry: contents) {
+		if (entry.productID.equals(productId))
+		{
+			entry.amount = new_amount;
+			System.out.println("Updated amount");
+		}
+	}
   }
   
   public void clearShoppingCart()
   {
     contents.clear();
+	System.out.println("Cleared shopping cart");
   }
 
   public void shutdown() {
@@ -78,7 +88,7 @@ public class ShoppingCartServer {
       NameComponent path[] = ncRef.to_name( name );
       ncRef.rebind(path, href);
 
-      System.out.println("ShoppingCartServer running at IOR ..." + orb.object_to_string(href));
+      System.out.println("ShoppingCartServer running at " + orb.object_to_string(href));
 
       // wait for invocations from clients
       orb.run();

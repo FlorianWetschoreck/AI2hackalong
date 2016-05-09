@@ -37,7 +37,7 @@ import ShoppingCartApp
 
 # We then initialize the object request broker use the IOR string displayed by the server to obtain an object reference
 orb = CORBA.ORB_init()
-ior = 'IOR:000000000000002549444c3a53686f7070696e67436172744170702f53686f7070696e67436172743a312e300000000000000001000000000000008a000102000000000f3137322e32332e3233312e3130330000f03e000000000031afabcb00000000205da40c8900000001000000000000000100000008526f6f74504f410000000008000000010000000014000000000000020000000100000020000000000001000100000002050100010001002000010109000000010001010000000026000000020002'
+ior = 'IOR:000000000000002549444c3a53686f7070696e67436172744170702f53686f7070696e67436172743a312e3000000000000000010000000000000086000102000000000e3139322e3136382e302e31303700eca700000031afabcb000000002097660d2600000001000000000000000100000008526f6f74504f410000000008000000010000000014000000000000020000000100000020000000000001000100000002050100010001002000010109000000010001010000000026000000020002'
 
 obj = orb.string_to_object(ior)
 shoppingcart = obj._narrow(ShoppingCartApp.ShoppingCart)
@@ -96,7 +96,23 @@ def addToShoppingCart(request, id):
     if Product.objects.filter(id=id).count()==0:
         response = "Sorry, we don't have a product with the ID " + id
     else:
+        shoppingcart.addToShoppingCart(id, 1)
         response = "Added product to shopping cart"
+    return HttpResponse(response, content_type="text/plain")
+
+
+def updateAmountShoppingCart(request, id, amount):
+    if Product.objects.filter(id=id).count()==0:
+        response = "Sorry, we don't have a product with the ID " + id
+    else:
+        shoppingcart.updateAmount(id, int(amount))
+        response = "Updated amount of product in shopping cart"
+    return HttpResponse(response, content_type="text/plain")
+
+
+def clearShoppingCart(request):   
+    shoppingcart.clearShoppingCart()
+    response = "Cleared shopping cart"
     return HttpResponse(response, content_type="text/plain")
 
 
@@ -105,6 +121,6 @@ def showShoppingCart(request):
     contents = shoppingcart.getShoppingCartContents()
     result = ""
     for x in contents: 
-        result += str(x) + '\n'; 
-    response = 'ShoppingCart contains:' + contents
+        result += str(x.amount) +'x product with ID ' + str(x.productID) + '\n'; 
+    response = 'ShoppingCart contains: \n =====================\n' + result
     return HttpResponse(response, content_type="text/plain")

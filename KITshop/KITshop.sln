@@ -7,6 +7,7 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "KITshop", "KITshop.pyproj",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{89F225BF-9390-4600-9AC8-C2EE4520FB1D}"
 	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
 		..\ShoppingCart\ShoppingCart.idl = ..\ShoppingCart\ShoppingCart.idl
 		..\ShoppingCart\ShoppingCartServer.java = ..\ShoppingCart\ShoppingCartServer.java
 	EndProjectSection

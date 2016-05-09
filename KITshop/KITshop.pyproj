@@ -27,6 +27,8 @@ PATH=C:\Program Files\omniORBpy-4.2.1\lib\x86_win32;C:\Program Files\omniORBpy-4
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="KITshop\settings.py" />
+    <Compile Include="KITshop\ShoppingCartApp\__init__.py" />
+    <Compile Include="KITshop\ShoppingCartApp__POA\__init__.py" />
     <Compile Include="KITshop\ShoppingCart_idl.py" />
     <Compile Include="KITshop\urls.py" />
     <Compile Include="KITshop\views.py">
@@ -44,11 +46,17 @@ PATH=C:\Program Files\omniORBpy-4.2.1\lib\x86_win32;C:\Program Files\omniORBpy-4
   </ItemGroup>
   <ItemGroup>
     <Folder Include="KITshop" />
+    <Folder Include="KITshop\ShoppingCartApp\" />
+    <Folder Include="KITshop\ShoppingCartApp\__pycache__\" />
+    <Folder Include="KITshop\ShoppingCartApp__POA\" />
     <Folder Include="product_catalog\" />
     <Folder Include="product_catalog\migrations\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{9a7a9026-48c1-4688-9d5d-e5699d47d074}\3.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="KITshop\ShoppingCartApp\__pycache__\__init__.cpython-35.pyc" />
   </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
