@@ -4,6 +4,11 @@ from product_catalog.models import Product
 
 import stomp
 
+# We first create a connection to the ActiveMQ Stomp endpoint 
+conn = stomp.Connection([('localhost', 61613)])
+conn.start()
+conn.connect()
+
 
 # This function will be called for every request that matches the pattern 
 # BASEURL/product/XYZ/ (see mapping in urls.py)
@@ -32,8 +37,8 @@ def order(request, id):
     # Prior to running this example, you should ... 
     # 1.) Start an ActiveMQ broker by running "activemq start" in the bin directory 
     #       of the activemq installation (available in this repository)
-    # 2.) Run the JAVA client that waits for messages. For this, install JDK 8 and NetBeans 
-    #       and open the project in the directory "OrderProcessor" in this repository
+    # 2.) Run the JAVA client that waits for messages. For this, install JDK 8 and the NetBeans IDE
+    #       Then open, compile and run the project in the directory "OrderProcessor" in NetBeans
     # 3.) Install the python stomp ActiveMQ client module stomp.py by running "pip install stomp.py" on the console
 
     # You can the try this example by running the server (python manage.py runserver) and then call 
@@ -42,12 +47,7 @@ def order(request, id):
     # We first query the name of the product
     product_name = str(Product.objects.filter(id=id).first())
 
-    # We then create a connection to the ActiveMQ Stomp endpoint 
-    conn = stomp.Connection([('localhost', 61613)])    
-    conn.start()
-    conn.connect()
-
-    # Send order message to the KITShop_OrderBook Queue 
+    # We then send an order message to the KITShop_OrderBook Queue 
     conn.send(body='Order of ' + product_name, destination='KITShop_OrderBook')
 
     # and disconnect 
