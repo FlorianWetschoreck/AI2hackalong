@@ -13,14 +13,20 @@ To test the example solution of this #hackalong, you can just follow these steps
 
 1.) Start the message broker process by opening a command line, changing to the directory `apache-activemq-5.13.2/bin` and running the command
 	`activemq start`
+
 2.) Open a browser and navigate to http://localhost:8161/admin/ to access the message broker administration.
 	You can login with the default user 'admin' and the password 'admin' (change this quickly in any real scenario!)
+
 3.) Click on the menu item `Queues` and create a new queue with the name `KITShop_OrderBook` (if it does not already exist)
+
 4.) Start the KITshop django app as usual (i.e. either running `python manage runserver` on the command line or klicking 
 	the play button in VisualStudio)
+
 5.) Test the new "order function" of our web shop by navigating to http://localhost:8000/order/123/
+
 6.) In the ActiveMQ interface, verify that there is a new queued message in the `OrderBook` queue. Note that our 
 	customer was able to submit an order even though the order processing application is still offline!
+
 7.) Now open the `KITShop_OrderProcessor` project in the repository in NetBeans. Compile and run the application and 
 	verify that the JAVA order processor application receives and processes the order message!
 
