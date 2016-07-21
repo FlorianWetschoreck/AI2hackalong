@@ -42,6 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="KITshop" />
+    <Folder Include="KITshop\static\" />
+    <Folder Include="KITshop\static\KITshop\css\" />
+    <Folder Include="KITshop\static\KITshop\js\" />
+    <Folder Include="KITshop\static\KITshop\" />
+    <Folder Include="KITshop\templates\" />
+    <Folder Include="KITshop\templates\KITshop\" />
     <Folder Include="product_catalog\" />
     <Folder Include="product_catalog\migrations\" />
   </ItemGroup>
@@ -49,7 +55,10 @@
     <InterpreterReference Include="{9a7a9026-48c1-4688-9d5d-e5699d47d074}\3.5" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="KITshop\static\KITshop\css\KITShop.css" />
+    <Content Include="KITshop\static\KITshop\js\KITShop.js" />
     <Content Include="KITshop\Review.xslt" />
+    <Content Include="KITshop\templates\KITshop\product.html" />
   </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />

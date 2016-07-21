@@ -1,0 +1,29 @@
+﻿{% load staticfiles %}
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static 'KITshop/css/KITShop.css' %}" />
+    <script src="{% static 'KITshop/js/KITShop.js' %}">
+    </script>
+    <title></title>
+</head>
+<body>
+    <h1>Welcome to the KIT Online Shop</h1>
+    <div class="product">
+        <h1>{{ product_name }}</h1>
+        <p>ID: {{product_id}}</p>        
+        <p>Price: {{product_price}}</p>        
+    </div>
+    <div class="selector">
+        Show <select id="reviewSelection" onchange="getReview()">
+            <option selected value="mostHelpfulReview">Most helpful</option>
+            <option value="mostCriticalReview">Most critical</option>
+        </select> review
+    </div>
+    <div class="review" id="reviewdiv">
+        {{ review_html|safe }}
+    </div>
+</body>
+</html>

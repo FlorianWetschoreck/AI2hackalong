@@ -65,6 +65,7 @@ namespace ReviewService
         [WebGet(UriTemplate = "/products/{productID}/MostHelpfulReview", ResponseFormat = WebMessageFormat.Xml)]
         public Review GetMostHelpfulReview(string productID)
         {
+            Console.WriteLine("MostHelpfulReview");
             return reviews.OrderByDescending(x => x.HelpfulVotes).First();
         }
 
@@ -72,6 +73,7 @@ namespace ReviewService
         [WebGet(UriTemplate = "/products/{productID}/MostCriticalReview", ResponseFormat = WebMessageFormat.Xml)]
         public Review GetMostCriticalReview(string productID)
         {
+            Console.WriteLine("MostCriticalReview");
             return reviews.OrderBy(x => x.Rating).First();
         }
 
